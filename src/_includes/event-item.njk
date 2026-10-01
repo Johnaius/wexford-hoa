@@ -1,0 +1,14 @@
+<li class="event" data-date="{{ event.date | isoDate }}">
+  <div class="cal" aria-hidden="true">
+    <span class="cal-month">{{ event.date | monthShort }}</span>
+    <span class="cal-day">{{ event.date | dayNum }}</span>
+  </div>
+  <div class="event-body">
+    <h3><a href="{{ event.url }}">{{ event.data.title }}</a></h3>
+    <p class="meta">
+      <time datetime="{{ event.date | isoDate }}">{{ event.date | readableDate }}</time>
+      {%- if event.data.time %} &middot; {{ event.data.time }}{% endif %}
+      {%- if event.data.location %} &middot; {{ event.data.location }}{% endif %}
+    </p>
+  </div>
+</li>

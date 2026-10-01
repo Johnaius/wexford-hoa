@@ -1,0 +1,85 @@
+---
+layout: base.njk
+permalink: /
+---
+{% from "icons.njk" import icon %}
+{% set posts = collections.announcements | pinnedFirst %}
+
+<section class="hero"{% if site.heroImage %} style="--hero-image: url('{{ site.heroImage | url }}')"{% endif %}>
+  <div class="container hero-inner">
+    <p class="eyebrow">Welcome home</p>
+    <h1>{{ site.name }}</h1>
+    <p class="hero-lead">{{ site.tagline }}</p>
+    <div class="hero-actions">
+      <a class="button" href="/announcements/">Latest News</a>
+      <a class="button button-ghost" href="/contact/">Contact the Board</a>
+    </div>
+  </div>
+</section>
+
+<div class="container hero-overlap">
+  {% if posts.length and posts[0].data.pinned %}
+  <a class="notice" href="{{ posts[0].url }}">
+    {{ icon("alert") }}
+    <span><strong>Important:</strong> {{ posts[0].data.title }}</span>
+    <span class="notice-more">Read more &rarr;</span>
+  </a>
+  {% endif %}
+  <ul class="tiles">
+    <li><a href="/announcements/">{{ icon("megaphone") }}<strong>Announcements</strong><span>News from the Board</span></a></li>
+    <li><a href="/events/">{{ icon("calendar") }}<strong>Events</strong><span>Meetings &amp; activities</span></a></li>
+    <li><a href="/documents/">{{ icon("document") }}<strong>Documents</strong><span>Bylaws, rules &amp; forms</span></a></li>
+    <li><a href="/board/">{{ icon("users") }}<strong>Board</strong><span>Meet your directors</span></a></li>
+  </ul>
+</div>
+
+<div class="container section home-grid">
+  <section>
+    <div class="section-head">
+      <h2>Latest Announcements</h2>
+      <a href="/announcements/">View all {{ icon("arrow") }}</a>
+    </div>
+    {% set latest = posts | limit(4) %}
+    {% if latest.length %}
+    <ul class="card-list">
+      {% for post in latest %}{% include "announcement-item.njk" %}{% endfor %}
+    </ul>
+    {% else %}
+    <p class="empty">No announcements yet.</p>
+    {% endif %}
+  </section>
+
+  <aside>
+    <div class="panel">
+      <div class="section-head">
+        <h2>Upcoming Events</h2>
+        <a href="/events/">All {{ icon("arrow") }}</a>
+      </div>
+      {% set upcoming = collections.events | upcoming | limit(4) %}
+      <ul class="event-list" data-upcoming>
+        {% for event in upcoming %}{% include "event-item.njk" %}{% endfor %}
+      </ul>
+      <p class="empty" data-upcoming-empty{% if upcoming.length %} hidden{% endif %}>No upcoming events scheduled.</p>
+    </div>
+    {% if site.meetingInfo %}
+    <div class="panel panel-accent">
+      <h2>Board Meetings</h2>
+      <p class="pre-line">{{ site.meetingInfo }}</p>
+    </div>
+    {% endif %}
+  </aside>
+</div>
+
+<section class="welcome">
+  <div class="container welcome-inner">
+    <div>
+      <p class="eyebrow">About the Association</p>
+      <h2>Welcome, neighbors</h2>
+      <p class="pre-line">{{ site.welcome }}</p>
+    </div>
+    <div class="welcome-cta">
+      <p>Questions, concerns, or ideas for the community?</p>
+      <a class="button" href="/contact/">Send the Board a message</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,16 @@
+---
+layout: base.njk
+eyebrow: Announcement
+---
+<div class="container section narrow">
+  <article class="post">
+    <p class="post-meta">
+      {% if pinned %}<span class="badge">Important</span>{% endif %}
+      Posted <time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time>
+    </p>
+    <div class="prose">
+      {{ content | safe }}
+    </div>
+  </article>
+  <p class="back"><a href="/announcements/">&larr; All announcements</a></p>
+</div>

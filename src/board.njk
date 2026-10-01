@@ -1,0 +1,23 @@
+---
+layout: base.njk
+title: Board of Directors
+eyebrow: Leadership
+intro: Volunteer homeowners elected to serve the Wexford community.
+permalink: /board/
+---
+<div class="container section">
+<ul class="board-grid">
+  {% for member in board.members %}
+  <li class="card member">
+    <span class="avatar" aria-hidden="true">{{ member.name | initials }}</span>
+    <h3>{{ member.name }}</h3>
+    <p class="role">{{ member.role }}</p>
+    {% if member.email %}<p><a href="mailto:{{ member.email }}">{{ member.email }}</a></p>{% endif %}
+  </li>
+  {% endfor %}
+</ul>
+<div class="panel panel-accent center">
+  <p>Want to reach the Board?</p>
+  <a class="button" href="/contact/">Send a message</a>
+</div>
+</div>

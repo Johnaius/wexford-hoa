@@ -1,0 +1,27 @@
+---
+layout: base.njk
+title: Documents & Forms
+eyebrow: Resources
+intro: Governing documents, meeting minutes, and forms for homeowners.
+permalink: /documents/
+---
+{% from "icons.njk" import icon %}
+<div class="container section narrow">
+{% for category in documents.documents | uniqueValues("category") %}
+<h2>{{ category }}</h2>
+<ul class="doc-list">
+  {% for doc in documents.documents %}{% if (doc.category or "Other") == category %}
+  <li>
+    <span class="doc-icon">{{ icon("document") }}</span>
+    <div>
+      {% if doc.file %}<a href="{{ doc.file }}" target="_blank" rel="noopener">{{ doc.title }}</a>{% else %}<strong>{{ doc.title }}</strong>{% endif %}
+      {% if doc.description %}<p class="meta">{{ doc.description }}</p>{% endif %}
+    </div>
+    {% if doc.file %}<a class="doc-download" href="{{ doc.file }}" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">View</a>{% endif %}
+  </li>
+  {% endif %}{% endfor %}
+</ul>
+{% else %}
+<p class="empty">No documents have been posted yet.</p>
+{% endfor %}
+</div>

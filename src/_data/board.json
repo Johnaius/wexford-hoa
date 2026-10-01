@@ -1,0 +1,8 @@
+{
+  "members": [
+    { "name": "Jane Smith", "role": "President", "email": "" },
+    { "name": "John Doe", "role": "Vice President", "email": "" },
+    { "name": "Mary Johnson", "role": "Treasurer", "email": "" },
+    { "name": "Robert Brown", "role": "Secretary", "email": "" }
+  ]
+}

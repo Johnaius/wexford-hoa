@@ -1,0 +1,17 @@
+---
+layout: base.njk
+title: Announcements
+eyebrow: News from the Board
+intro: Notices, updates, and important information for Wexford residents.
+permalink: /announcements/
+---
+<div class="container section narrow">
+{% set posts = collections.announcements | pinnedFirst %}
+{% if posts.length %}
+<ul class="card-list">
+  {% for post in posts %}{% include "announcement-item.njk" %}{% endfor %}
+</ul>
+{% else %}
+<p class="empty">No announcements yet.</p>
+{% endif %}
+</div>

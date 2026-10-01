@@ -1,0 +1,94 @@
+media:
+  input: src/uploads
+  output: /uploads
+
+content:
+  - name: announcements
+    label: Announcements
+    type: collection
+    path: src/announcements
+    exclude: [announcements.json]
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      primary: title
+      fields: [title, date, pinned]
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: date, label: Date, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - { name: pinned, label: "Mark as important (pin to top)", type: boolean, default: false }
+      - { name: summary, label: Short summary, type: text, description: "One or two sentences shown in the announcement list." }
+      - { name: body, label: Announcement, type: rich-text, options: { format: markdown } }
+
+  - name: events
+    label: Events
+    type: collection
+    path: src/events
+    exclude: [events.json]
+    filename: "{fields.date}-{primary}.md"
+    view:
+      primary: title
+      fields: [title, date, location]
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: date, label: Date, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - { name: time, label: Time, type: string, description: "e.g. 7:00 PM" }
+      - { name: location, label: Location, type: string }
+      - { name: body, label: Details, type: rich-text, options: { format: markdown } }
+
+  - name: documents
+    label: Documents & Forms
+    type: file
+    path: src/_data/documents.json
+    format: json
+    fields:
+      - name: documents
+        label: Documents
+        type: object
+        list: true
+        fields:
+          - { name: title, label: Title, type: string, required: true }
+          - name: category
+            label: Category
+            type: select
+            options:
+              values: ["Governing Documents", "Meeting Minutes", "Forms", "Financial", "Other"]
+          - { name: file, label: File, type: file }
+          - { name: description, label: Description, type: string }
+
+  - name: board
+    label: Board Members
+    type: file
+    path: src/_data/board.json
+    format: json
+    fields:
+      - name: members
+        label: Members
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Name, type: string, required: true }
+          - { name: role, label: Role, type: string, required: true }
+          - { name: email, label: "Email (optional, shown publicly)", type: string }
+
+  - name: site
+    label: General Site Info
+    type: file
+    path: src/_data/site.json
+    format: json
+    fields:
+      - { name: name, label: Association Name, type: string, required: true }
+      - { name: shortName, label: Short Name, type: string }
+      - { name: tagline, label: Tagline, type: string }
+      - { name: heroImage, label: "Home Page Photo (optional)", type: image, description: "A wide photo of the neighborhood or entrance sign." }
+      - { name: welcome, label: Home Page Welcome Text, type: text }
+      - { name: contactEmail, label: Contact Email, type: string }
+      - { name: mailingAddress, label: Mailing Address, type: text }
+      - { name: meetingInfo, label: Regular Meeting Info, type: text }

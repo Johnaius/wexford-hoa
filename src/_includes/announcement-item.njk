@@ -1,0 +1,9 @@
+<li class="card news{% if post.data.pinned %} pinned{% endif %}">
+  <p class="news-meta">
+    {% if post.data.pinned %}<span class="badge">Important</span>{% endif %}
+    <time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
+  </p>
+  <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+  {% if post.data.summary %}<p>{{ post.data.summary }}</p>{% endif %}
+  <a class="read-more" href="{{ post.url }}" aria-hidden="true" tabindex="-1">Read more &rarr;</a>
+</li>

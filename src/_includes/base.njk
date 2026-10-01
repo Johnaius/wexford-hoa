@@ -1,0 +1,95 @@
+{% from "icons.njk" import icon %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if title %}{{ title }} | {% endif %}{{ site.name }}</title>
+  <meta name="description" content="{{ description or site.tagline }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Source+Sans+3:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>{{ site.tagline }}</span>
+      {% if site.contactEmail %}<a href="mailto:{{ site.contactEmail }}">{{ icon("mail") }} {{ site.contactEmail }}</a>{% endif %}
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">{{ icon("home") }}</span>
+        <span class="brand-text">
+          <span class="brand-name">{{ site.name }}</span>
+          <span class="brand-sub">{{ site.shortName }} &middot; Community Association</span>
+        </span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">{{ icon("menu") }}<span class="sr-only">Menu</span></button>
+      <nav id="site-nav" class="nav" aria-label="Main">
+        <ul>
+          {%- set links = [
+            ["/", "Home"],
+            ["/announcements/", "Announcements"],
+            ["/events/", "Events"],
+            ["/documents/", "Documents"],
+            ["/board/", "Board"]
+          ] %}
+          {%- for link in links %}
+          <li><a href="{{ link[0] }}"{% if page.url == link[0] or (link[0] != "/" and page.url.startsWith(link[0])) %} aria-current="page"{% endif %}>{{ link[1] }}</a></li>
+          {%- endfor %}
+          <li><a class="nav-cta" href="/contact/"{% if page.url.startsWith("/contact/") %} aria-current="page"{% endif %}>Contact the Board</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  {% if page.url != "/" %}
+  <div class="page-banner">
+    <div class="container">
+      {% if eyebrow %}<p class="eyebrow">{{ eyebrow }}</p>{% endif %}
+      <h1>{{ title }}</h1>
+      {% if intro %}<p class="page-intro">{{ intro }}</p>{% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  <main id="main">
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p class="footer-title">{{ site.name }}</p>
+        <p>{{ site.tagline }}</p>
+      </div>
+      <div>
+        <p class="footer-title">Quick Links</p>
+        <ul class="footer-links">
+          <li><a href="/announcements/">Announcements</a></li>
+          <li><a href="/events/">Events &amp; Meetings</a></li>
+          <li><a href="/documents/">Documents &amp; Forms</a></li>
+          <li><a href="/board/">Board of Directors</a></li>
+          <li><a href="/contact/">Contact the Board</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-title">Contact</p>
+        {% if site.mailingAddress %}<p class="pre-line">{{ site.mailingAddress }}</p>{% endif %}
+        {% if site.contactEmail %}<p><a href="mailto:{{ site.contactEmail }}">{{ site.contactEmail }}</a></p>{% endif %}
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>&copy; {{ build.year }} {{ site.name }}. All rights reserved.</p>
+      <p><a href="https://app.pagescms.org/" rel="noopener">Board login</a></p>
+    </div>
+  </footer>
+</body>
+</html>

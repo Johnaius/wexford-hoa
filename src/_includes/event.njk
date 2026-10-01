@@ -1,0 +1,18 @@
+---
+layout: base.njk
+eyebrow: Event
+---
+{% from "icons.njk" import icon %}
+<div class="container section narrow">
+  <article class="post">
+    <ul class="event-facts">
+      <li>{{ icon("calendar") }} <time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time></li>
+      {% if time %}<li>{{ icon("clock") }} {{ time }}</li>{% endif %}
+      {% if location %}<li>{{ icon("pin") }} {{ location }}</li>{% endif %}
+    </ul>
+    <div class="prose">
+      {{ content | safe }}
+    </div>
+  </article>
+  <p class="back"><a href="/events/">&larr; All events</a></p>
+</div>

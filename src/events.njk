@@ -1,0 +1,27 @@
+---
+layout: base.njk
+title: Events & Meetings
+eyebrow: Community Calendar
+intro: Board meetings, community gatherings, and important dates.
+permalink: /events/
+---
+<div class="container section narrow">
+  {% if site.meetingInfo %}
+  <div class="panel panel-accent">
+    <h2>Regular Board Meetings</h2>
+    <p class="pre-line">{{ site.meetingInfo }}</p>
+  </div>
+  {% endif %}
+
+  <h2>Upcoming</h2>
+  {% set upcoming = collections.events | upcoming %}
+  <ul class="event-list event-list-lg" data-upcoming>
+    {% for event in upcoming %}{% include "event-item.njk" %}{% endfor %}
+  </ul>
+  <p class="empty" data-upcoming-empty{% if upcoming.length %} hidden{% endif %}>No upcoming events scheduled.</p>
+
+  <h2>Past Events</h2>
+  <ul class="event-list event-list-lg past" data-past>
+    {% for event in collections.events | past %}{% include "event-item.njk" %}{% endfor %}
+  </ul>
+</div>

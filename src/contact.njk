@@ -1,0 +1,30 @@
+---
+layout: base.njk
+title: Contact the Board
+eyebrow: Get in touch
+intro: Have a question, concern, or suggestion? Reach out and a Board member will respond.
+permalink: /contact/
+---
+{% from "icons.njk" import icon %}
+<div class="container section contact-grid">
+<div class="panel contact-main">
+  {% if site.contactEmail %}
+  <span class="contact-icon">{{ icon("mail") }}</span>
+  <h2>Email the Board</h2>
+  <p>The fastest way to reach us. Please include your name and street address so we can follow up.</p>
+  <p class="contact-email"><a href="mailto:{{ site.contactEmail }}">{{ site.contactEmail }}</a></p>
+  <a class="button" href="mailto:{{ site.contactEmail }}?subject={{ ('Question for the ' + site.shortName + ' Board') | urlencode }}">Write an email</a>
+  {% else %}
+  <h2>Contact the Board</h2>
+  <p>Contact details will be posted soon.</p>
+  {% endif %}
+</div>
+<aside class="panel">
+  <h2>Other ways to reach us</h2>
+  <ul class="contact-list">
+    {% if site.mailingAddress %}<li>{{ icon("pin") }} <span class="pre-line">{{ site.mailingAddress }}</span></li>{% endif %}
+    <li>{{ icon("users") }} <a href="/board/">See Board members</a></li>
+  </ul>
+  {% if site.meetingInfo %}<h2>Attend a meeting</h2><p class="pre-line">{{ site.meetingInfo }}</p>{% endif %}
+</aside>
+</div>
